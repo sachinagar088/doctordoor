@@ -1,0 +1,159 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Chat Bot</title>
+<meta charset="utf-8"/>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script>
+    var ws = new WebSocket("ws://localhost:8000");
+    $(window).on('beforeunload', function(){
+       ws.close();
+    });
+    ws.onerror = function(event) {
+        location.reload();
+    }
+    ws.onmessage = function(event)  { 
+        var message_received = event.data;
+        chat_add_message(message_received, false);
+    };
+    function chat_add_message(message, isUser) {
+        var class_suffix = isUser ? '_user' : '';
+        var html = '\
+        <div class="chat_line">\
+            <div class="chat_bubble'+class_suffix+'">\
+              <div class="chat_triangle'+class_suffix+'"></div>\
+                '+message+'\
+            </div>\
+        </div>\
+        ';
+        chat_add_html(html);
+    }
+    function chat_add_html(html) {
+        $("#chat_log").append(html);
+        chat_scrolldown();
+    }
+    function chat_scrolldown() {
+        $("#chat_log").animate({ scrollTop: $("#chat_log")[0].scrollHeight }, 500);
+    }
+    $(function() {
+       $('#chat_input').on('keypress', function(event) {
+          if (event.which === 13 && $(this).val() != ""){
+             var message = $(this).val();
+             $(this).val("");
+             chat_add_message(message, true);
+             ws.send(message);
+          }
+       });
+    });
+</script>
+<style>
+    * {
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+    }
+    body {
+        font-family: Helvetica;
+    }
+    #chat_container {
+        overflow: hidden;
+        border-radius: 15px;
+        border: 1px solid black;
+        margin-top:50px;
+        margin-left:200px;
+        margin-right:200px;
+        height:70%
+    }
+    #chat_log {
+        background-color: #F3F76F;
+        padding: 10px;
+        border-bottom: 1px solid black;
+        overflow-y: scroll;
+        height: 400px;
+        font-size: 26px;
+    }
+    #chat_input_container {
+        padding: 10px;
+    }
+    #chat_input {
+        padding: 2px;
+        font-size: 18px;
+        width: 100%;
+    }
+    .chat_line {
+        overflow: hidden;
+        width: 100%;
+        margin: 2px 0 12px 0;
+    }
+    .chat_triangle, .chat_triangle_user {
+        position: absolute;
+        top: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        left: -18px;
+        border-width: 0 18px 13px 0;
+        border-color: transparent #ffffff transparent transparent;
+    }
+    .chat_triangle_user {
+        left: auto;
+        right: -18px;
+        border-width: 13px 18px 0 0;
+        border-color: #234b9b transparent transparent transparent;
+    }
+    .chat_bubble, .chat_bubble_user {
+        position: relative;
+        float: left;
+        background-color: #FFF;
+        margin-top: 10px;
+        line-height: 35px;
+        padding: 10px 25px 10px 25px;
+        margin-left: 20px;
+        font-size: 27px;
+    }
+    .chat_bubble_user {
+        float: right;
+        margin-left: 0px;
+        margin-right: 20px;
+        background-color: #234b9b;
+        color: #FFF;
+    }
+</style>
+</head>
+
+<body style="background-color:rgb(196, 212, 237);">
+<nav class="navbar navbar-inverse navbar-fixed-top">  
+<div class="container">
+	<div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="#" class="navbar-brand">Doctor Door</a>
+    </div>
+	<div class="collapse navbar-collapse" id="bs-nav-demo">
+	<ul class="nav navbar-nav">
+		<li><a href="/dashboard" active>Home</a></li>
+        <li><a href="/contact">Contact</a></li>
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+		<li><a><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Welcome <%=doc1 %> </a></li>
+		<li><a href="/users/login"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Log out</a></li>	
+	</ul>
+	</div>
+</div>
+</nav>
+    <br>
+    <br>
+<div id="chat_container">
+    <div id="chat_log">
+    </div>
+    <div id="chat_input_container">
+        <div><input id="chat_input" placeholder="Enter your message"/></div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+
+        <link rel="stylesheet" href="https://bootswatch.com/4/journal/bootstrap.min.css">
+        
+        <title>Login</title>
+    </head>
+    <body style="background-image:url(https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80);background-size:cover;background-repeat:no-repeat;">
+        <div style="height:50px;"></div>
+<div class="row mt-5">
+  <div class="col-md-6 m-auto">
+    <div class="card card-body" style="background-color:rgba(0,0,0,0.5);border-radius:20px;color:white;">
+      <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>  Login</h1>
+      <form action="/users/login" method="POST">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="form-control"
+            placeholder="Enter Email"
+          />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            placeholder="Enter Password"
+          />
+        </div>
+        <button type="submit" style="background-color:rgb(198, 206, 205);" class="btn btn-block">Login</button>
+      </form>
+      <p class="lead mt-4">
+        No Account? <a href="/users/register" style="color:rgb(119, 255, 225);">Register</a>
+      </p>
+    </div>
+  </div>
+</div>
+    </body>
+</html>

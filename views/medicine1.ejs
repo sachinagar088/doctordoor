@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Dashboard</title>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:700" rel="stylesheet">
+    <style type="text/css">
+		 body{
+        padding-top: 7%;
+		background:url("map.jpg");
+        background-color: #e5eefc;
+        background-size: cover;
+        background-position:center;
+			}
+		.button {
+    position: absolute;
+    top: 50%;
+}
+		html{
+			height:100%;
+		}
+		#content{
+			text-align:center;
+			color: white;
+			font-family: 'Open Sans', sans-serif;
+			text-shadow: 0px 4px 3px black;
+		}
+		h1{
+			font-weight: 700;
+			font-size: 5em;
+		}
+        .footer {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+    height:5%;
+padding:12px;
+  background-color: white;
+            font-family: 'Open Sans', sans-serif;
+  text-align: center;
+}
+		.wrapper {
+    text-align: center;
+                }
+.container1 {
+  position: center;
+  right: 0;
+  max-width: 550px;
+margin-left:410px;
+  padding: 16px;
+  background-color: white;
+  border-radius:10px;
+    font-family: 'Open Sans', sans-serif;
+}
+input[type=name]{
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+        h3{
+            font-family: 'Open Sans', sans-serif;
+            background-color: white;
+            width:40%;
+        }
+        
+.lis ul {
+margin-left: 250px;
+  list-style-type: none;
+  float: left;}
+
+	hr{
+    border: 0;
+    height: 1px;
+    text-align:center; 
+    width:50%;
+    background: #333;
+    background-image: linear-gradient(to right, #ccc, #333, #ccc);
+}
+	</style>
+</head>
+<body>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">  
+<div class="container">
+	<div class="navbar-header">
+		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="#" class="navbar-brand">Doctor Door</a>
+    </div>
+	<div class="collapse navbar-collapse" id="bs-nav-demo">
+	<ul class="nav navbar-nav">
+		<li><a href="/dashboard" active>Home</a></li>
+        <li><a href="/contact">Contact</a></li>
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+		<li><a><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Welcome <%=doc1 %> </a></li>
+		<li><a href="/users/login"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>Log out</a></li>	
+	</ul>
+	</div>
+</div>
+</nav>
+    <div class="container" style="text-align:center;">
+    <form action="/get2" method="post">
+          <input type="text" name="search" style="width:30%;padding:6px;" placeholder="Enter Disease">
+        <button class="btn btn-md btn-primary" type="submit" style="background-color:rgb(155, 184, 232);">
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
+    </form>
+    </div><br><br>
+<div class="container">
+   <center><table class="table" style="background-color:rgba(0,0,0,0.6);padding:10px;border-radius:10px;color:white;width:60%;text-align:center;">
+    <th style="text-align:center;">Disease Name</th><th style="text-align:center;">Medicine</th>
+    <%doc.forEach(function(doc){%>
+    <tr>
+    <td><%=doc.disease%></td>
+    <td><%=doc.medicine%></td>
+    </tr>
+    <%})%>
+       </table></center>
+    <div style="text-align:center;"><a href="/get2" class="btn btn-md btn-warning">Get All</a></div>
+</div><br>
+<div class="footer">
+    <p>© 2018 Copyright: Sachin</p></div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.js"></script>
+</body>
+</html>
